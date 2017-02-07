@@ -1,63 +1,63 @@
 package si.tasks;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Alessandro Fook on 01/02/2017.
  */
 @Entity
-public class Task {
+public class Task extends SubTask{
 
-	@Column
-	private String name;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SubTask> subTasks;
 
-	@Column
-	private boolean isDone;
-
-	@Column
-	private String taskListName;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	public Task(String name, String taskListName){
-		setName(name);
-		setTaskListName(taskListName);
+	public Task(){
 		setDone(false);
+		setSubTasks(new ArrayList<>());
 	}
 
-	public Task(){}
-
-	public String getName() {
-		return name;
+	public Task(String name, String description){
+		setSubTasks(new ArrayList<>());
+		setDone(false);
+		setName(name);
+		setDescription(description);
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public List<SubTask> getSubTasks() {
+		return subTasks;
 	}
 
-	public boolean isDone() {
-		return isDone;
+	public void setSubTasks(List<SubTask> subTasks) {
+		this.subTasks = subTasks;
 	}
 
-	public void setDone(boolean done) {
-		isDone = done;
+	public SubTask getSubTask(long id) {
+
+		for (int i = 0; i < getSubTasks().size(); i++) {
+
+			SubTask subTask = getSubTasks().get(i);
+			if (subTask.getId() == id)
+				return subTask;
+
+		}
+		return null;
 	}
 
-	public long getId() {
-		return id;
+	public void addSubTask(SubTask subTask) {
+		getSubTasks().add(subTask);
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void removeSubTask(SubTask subtask) {
+		getSubTasks().remove(subtask);
 	}
 
-	public String getTaskListName() {
-		return taskListName;
-	}
+	public void removeSubTask(long id){
 
-	public void setTaskListName(String taskListName) {
-		this.taskListName = taskListName;
+		SubTask subTask = getSubTask(id);
+
+		if (subTask != null)
+			getSubTasks().remove(subTask);
 	}
 }
