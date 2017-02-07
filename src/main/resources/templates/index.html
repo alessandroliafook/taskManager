@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">My Tasks</a>
-            <a class="navbar-btn btn btn" href="#" onclick="changeCSS('css/default.css', 0);">Default
+            <a class="navbar-btn" href="#" onclick="changeCSS('css/default.css', 0);">Default
                 Style</a>
             <a class="btn navbar-btn" href="#" onclick="changeCSS('css/superhero.css', 0);">SuperHero
                 Style</a>
@@ -27,12 +27,14 @@
 </nav>
 
 <!--MyApp scope-->
-<div class="center-block container text-center" ng-app="myApp" ng-controller="controller">
+<div ng-app="myApp" ng-controller="controller">
 
-    <button ng-click="testPost()"> post</button>
-    <button ng-click="testGet()">get</button>
+    <div class="center-block container text-center">
 
-    <!--Form to insert new tasks-->
+        <button ng-click="testPost()"> post</button>
+        <button ng-click="testGet()">get</button>
+
+        <!--Form to insert new tasks-->
     <form>
         <div class="form-group">
             <label for="taskName"></label>
@@ -43,27 +45,25 @@
             <a class="btn btn-danger btn-sm" href="#" ng-click="removeDoneTasks()"> Remove All Done </a>
         </div>
     </form>
-
-
     <!--Table with all inserted tasks-->
-
     <table class="table table-striped table-hover">
         <a href="#">Tasks <span class="badge">{{tasks.length}}</span></a>
         <tbody class="text-left" ng-repeat="task in tasks">
-        <tr>
+        <tr class="{{task.columnName}}">
         <td><input type="checkbox" ng-model="task.isDone" ng-change="updateConcludedList($index)"/></td>
         <td>{{task.titleName}}</td>
         <td class="text-right"><a class="btn btn-danger btn-xs" href="#" ng-click="deleteTask($index)">X</a></td>
         </tr>
         </tbody>
     </table>
-
     <!--Progress bar of done tasks-->
     <div class="progress center-block" style="width: 50%">
         <div class="progress-bar progress-bar-success" id="done-bar"> Done </div>
         <div class="progress-bar progress-bar-warning" id="undone-bar"> To Do </div>
     </div>
+    </div>
 </div>
+
 </body>
 
 <!--Referências do Angular-->
