@@ -1,4 +1,4 @@
-package si.tasks;
+package model.tasks;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,11 +18,12 @@ public class Task extends SubTask{
 		setSubTasks(new ArrayList<>());
 	}
 
-	public Task(String name, String description){
+	public Task(String name, String description, String priority){
 		setSubTasks(new ArrayList<>());
 		setDone(false);
 		setName(name);
 		setDescription(description);
+		setPriority(priority);
 	}
 
 	public List<SubTask> getSubTasks() {
@@ -33,7 +34,7 @@ public class Task extends SubTask{
 		this.subTasks = subTasks;
 	}
 
-	public SubTask getSubTask(long id) {
+	public SubTask getSubTask(Long id) {
 
 		for (int i = 0; i < getSubTasks().size(); i++) {
 
@@ -53,11 +54,11 @@ public class Task extends SubTask{
 		getSubTasks().remove(subtask);
 	}
 
-	public void removeSubTask(long id){
+	public void removeSubTask(Long id){
 
 		SubTask subTask = getSubTask(id);
 
 		if (subTask != null)
-			getSubTasks().remove(subTask);
+			removeSubTask(subTask);
 	}
 }

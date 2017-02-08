@@ -1,4 +1,4 @@
-package si.tasks;
+package model.tasks;
 
 import javax.persistence.*;
 
@@ -18,9 +18,20 @@ public class SubTask {
 	@Column
 	private String description;
 
+	@Column
+	private String priority;
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	public SubTask(){
 		setDone(false);
@@ -52,7 +63,7 @@ public class SubTask {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package si.tasks;
+package model.tasks;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class TaskList {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long Id;
+	private Long Id;
 
 	@Column
 	private String listName;
@@ -60,7 +60,7 @@ public class TaskList {
 		this.listName = name;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
@@ -69,7 +69,7 @@ public class TaskList {
 	}
 
 
-	public Task getTask(long taskId) {
+	public Task getTask(Long taskId) {
 
 		for (int i = 0; i < getTasks().size(); i++) {
 
@@ -89,7 +89,7 @@ public class TaskList {
 
 	}
 
-	public boolean removeTask(long taskId) {
+	public boolean removeTask(Long taskId) {
 
 		Task task = getTask(taskId);
 		return getTasks().remove(task);
