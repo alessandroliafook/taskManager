@@ -66,7 +66,7 @@
     <table class="table table-striped table-hover">
         <a href="#">Tasks <span class="badge">{{tasks.length}}</span></a>
         <tbody class="text-left" ng-repeat="task in tasks">
-        <tr class="{{task.columnName}}">
+        <tr class="{{task.priority}}">
         <td><input type="checkbox" ng-model="task.isDone" ng-change="updateConcludedList($index)"/></td>
         <td>{{task.titleName}}</td>
         <td class="text-right"><a class="btn btn-danger btn-xs" href="#" ng-click="deleteTask($index)">X</a></td>

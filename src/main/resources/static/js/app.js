@@ -12,7 +12,6 @@ app.controller('controller', function ($scope, $http) {
     $scope.listTitle = "";
     $scope.taskLists = new Array();
 
-
     $scope.addTaskList = function () {
         $scope.taskLists.push($scope.listTitle);
         console.log($scope.taskLists);
