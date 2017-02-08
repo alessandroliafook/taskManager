@@ -29,7 +29,7 @@ public class ModelController {
 
 	@RequestMapping(value = "/task", method = RequestMethod.POST)
 	public @ResponseBody Task saveTask(){
-		Task task = new Task("Acordar", "Diaria");
+		Task task = new Task("Acordar", "Diaria", "baixa");
 		return taskBd.save(task); // salva o objeto e retorna um objeto q deve ser usado no sistema
 	}
 
