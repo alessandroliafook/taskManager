@@ -47,7 +47,7 @@ public class BdController {
 		return taskListBd.findAll();
 	}
 
-	public TaskList getTaskList(long id) {
+	public TaskList getTaskList(Long id) {
 		return taskListBd.findOne(id);
 	}
 
@@ -55,7 +55,7 @@ public class BdController {
 		return taskListBd.save(taskList);
 	}
 
-	public boolean removeTaskList(long id) {
+	public boolean removeTaskList(Long id) {
 
 		if (taskListBd.findOne(id) != null) {
 
@@ -69,7 +69,7 @@ public class BdController {
 		taskListBd.deleteAll();
 	}
 
-	public TaskList editListName(long id, String name) {
+	public TaskList editListName(Long id, String name) {
 
 		TaskList taskList = taskListBd.findOne(id);
 
@@ -81,7 +81,7 @@ public class BdController {
 		return null;
 	}
 
-	public boolean clearTaskList(long id) {
+	public boolean clearTaskList(Long id) {
 
 		TaskList taskList = taskListBd.findOne(id);
 
@@ -100,11 +100,11 @@ public class BdController {
 		return taskBd.findAll();
 	}
 
-	public List<Task> getAllTasks(long taskListId){
+	public List<Task> getAllTasks(Long taskListId){
 		return taskListBd.getOne(taskListId).getTasks();
 	}
 
-	public Task getTask(long taskId) {
+	public Task getTask(Long taskId) {
 		return taskBd.findOne(taskId);
 	}
 
@@ -114,7 +114,7 @@ public class BdController {
 	 * @param task - The new task that will be added to the database
 	 * @return The new task added to the database
 	 */
-	public Task saveTask(long taskListId, Task task){
+	public Task saveTask(Long taskListId, Task task){
 
 		TaskList taskList = taskListBd.findOne(taskListId);
 
@@ -132,7 +132,7 @@ public class BdController {
 		return taskBd.save(task);
 	}
 
-	public boolean removeTask(long taskListId, long taskId) {
+	public boolean removeTask(Long taskListId, Long taskId) {
 
 		TaskList taskList = getTaskList(taskListId);
 
@@ -149,11 +149,11 @@ public class BdController {
 
 	// methods of SubTask
 
-	public SubTask getSubTask(long id){
+	public SubTask getSubTask(Long id){
 		return subTaskBd.findOne(id);
 	}
 
-	public SubTask saveSubTask(long taskId, SubTask subTask) {
+	public SubTask saveSubTask(Long taskId, SubTask subTask) {
 
 		Task task = getTask(taskId);
 
@@ -168,7 +168,7 @@ public class BdController {
 		return subTaskBd.save(subTask);
 	}
 
-	public boolean removeSubTask(long taskId, long subTaskId) {
+	public boolean removeSubTask(Long taskId, Long subTaskId) {
 
 		Task task = taskBd.findOne(taskId);
 
