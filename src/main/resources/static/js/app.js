@@ -9,6 +9,15 @@ app.controller('controller', function ($scope, $http) {
     $scope.taskName = "";
     $scope.tasks = new Array();
 
+    $scope.listTitle = "";
+    $scope.taskLists = new Array();
+
+
+    $scope.addTaskList = function () {
+        $scope.taskLists.push($scope.listTitle);
+        console.log($scope.taskLists);
+    }
+
 
     $scope.testPost = function(){
         $http({
@@ -33,7 +42,7 @@ app.controller('controller', function ($scope, $http) {
     var task = function (taskName) {
         this.titleName = taskName;
         this.isDone = false;
-        this.columnName = "warning";
+        this.priority = "warning";
     };
 
     //creating start tasks and add to list to accomplish design request
@@ -100,12 +109,12 @@ app.controller('controller', function ($scope, $http) {
 
         if(task.isDone === true &&  taskIndex < 0) {
             $scope.concludedList.push(task);
-            $scope.tasks[index].columnName = "success";
+            $scope.tasks[index].priority = "success";
         }
 
         if(task.isDone === false && taskIndex >= 0) {
             $scope.concludedList.splice(taskIndex, 1);
-            $scope.tasks[index].columnName = "warning";
+            $scope.tasks[index].priority = "warning";
         }
         $scope.updateDonePercentage();
     };

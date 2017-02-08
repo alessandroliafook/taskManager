@@ -30,8 +30,25 @@
 <div ng-app="myApp" ng-controller="controller">
 
     <div class="center-block container text-center">
+        <form>
+            <div class="form-group">
+                <label for="listTitle"></label>
+                <input type="text" class="form-control center-block input-sm" style="width: 50%"
+                       placeholder="Enter the new list of tasks" ng-model="listTitle"
+                       id="listTitle"/>
+                <a class="btn btn-success btn-sm button" href="#" ng-click="addTaskList()"> Add</a>
+                <a class="btn btn-danger btn-sm" href="#" ng-click="removeDoneTasks()"> Remove All Done </a>
+            </div>
+        </form>
 
-        <button ng-click="testPost()"> post</button>
+        <ul class="pagination" ng-repeat="task in tasks">
+            <li ng-click="testPost()"><a href="#">{{task.titleName}}</a></li>
+        </ul>
+    </div>
+
+    <div class="center-block container text-center">
+
+        <button ng-click="testPost()">set</button>
         <button ng-click="testGet()">get</button>
 
         <!--Form to insert new tasks-->
