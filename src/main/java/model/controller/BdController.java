@@ -1,10 +1,13 @@
-package si.tasksBd;
+package model.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import si.tasks.SubTask;
-import si.tasks.Task;
-import si.tasks.TaskList;
+import model.tasks.SubTask;
+import model.tasks.Task;
+import model.tasks.TaskList;
+import model.tasksBd.SubTaskBd;
+import model.tasksBd.TaskBd;
+import model.tasksBd.TaskListBd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,18 +153,6 @@ public class BdController {
 		return subTaskBd.findOne(id);
 	}
 
-	public boolean removeSubTask(long taskId, long id) {
-
-		Task task = taskBd.findOne(taskId);
-
-		if (task != null && task.getSubTask(id) != null) {
-			task.removeSubTask(id);
-			subTaskBd.delete(id);
-			return true;
-		}
-		return false;
-	}
-
 	public SubTask saveSubTask(long taskId, SubTask subTask) {
 
 		Task task = getTask(taskId);
@@ -175,5 +166,17 @@ public class BdController {
 
 	public SubTask saveSubTask(SubTask subTask) {
 		return subTaskBd.save(subTask);
+	}
+
+	public boolean removeSubTask(long taskId, long subTaskId) {
+
+		Task task = taskBd.findOne(taskId);
+
+		if (task != null && task.getSubTask(subTaskId) != null) {
+			task.removeSubTask(subTaskId);
+			subTaskBd.delete(subTaskId);
+			return true;
+		}
+		return false;
 	}
 }

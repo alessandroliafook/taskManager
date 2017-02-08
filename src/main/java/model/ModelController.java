@@ -1,4 +1,4 @@
-package si.controller;
+package model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import si.tasksBd.TaskBd;
-import si.tasks.Task;
+import model.tasksBd.TaskBd;
+import model.tasks.Task;
 
 /**
  * Created by Alessandro Fook on 01/02/2017.
  */
 @Controller
-public class IndexController {
+public class ModelController {
 
 	@Autowired
 	private TaskBd taskBd;
