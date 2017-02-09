@@ -23,41 +23,27 @@ public class TaskController {
 	public TaskController() {}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/task", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Task>> getAllTasks() {
-
-		List<Task> tasks = bdController.getAllTasks();
-		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
+	public List<Task> getAllTasks() {
+		return bdController.getAllTasks();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/task/{listId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Task>> getAllTasks(@PathVariable Long listId) {
-
-		List<Task> tasks = bdController.getAllTasks(listId);
-		return new ResponseEntity<List<Task>>(tasks, HttpStatus.OK);
+	public List<Task> getAllTasks(@PathVariable Long listId) {
+		return bdController.getAllTasks(listId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/task/{listId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Task> saveTask(@PathVariable Long listId, @RequestBody Task task) {
-
-		Task savedTask = bdController.saveTask(listId, task);
-
-		return (savedTask != null) ? new ResponseEntity<Task>(savedTask, HttpStatus.OK) :
-									 new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+	public Task saveTask(@PathVariable Long listId, @RequestBody Task task) {
+		return bdController.saveTask(listId, task);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/task")
-	public ResponseEntity<Task> saveTask(@RequestBody Task task) {
-
-		Task savedTask = bdController.saveTask(task);
-
-		return new ResponseEntity<Task>(savedTask, HttpStatus.OK);
+	public Task saveTask(@RequestBody Task task) {
+		return bdController.saveTask(task);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/task/{listId}/{taskId}")
-	public ResponseEntity<Task> removeTask(@PathVariable Long listId, @PathVariable Long taskId) {
-		boolean isRemoved = bdController.removeTask(listId, taskId);
-
-		return (isRemoved) ? new ResponseEntity<Task>(HttpStatus.OK) :
-							 new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+	public void removeTask(@PathVariable Long listId, @PathVariable Long taskId) {
+		bdController.removeTask(listId, taskId);
 	}
 }

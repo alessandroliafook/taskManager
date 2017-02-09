@@ -24,67 +24,49 @@ public class TaskListController {
 	public TaskListController(){}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/taskList", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TaskList>> getAllTaskLists() {
-
-		List<TaskList> taskLists = bdController.getAllTaskLists();
-
-		return new ResponseEntity<List<TaskList>>(taskLists, HttpStatus.OK);
+	public List<TaskList> getAllTaskLists() {
+		return bdController.getAllTaskLists();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/taskList/{id}/{priority}")
-	public ResponseEntity<TaskList> getTaskList(@PathVariable Long id, @PathVariable String priority) {
+	public TaskList getTaskList(@PathVariable Long id, @PathVariable String priority) {
 
 		TaskList taskList = bdController.getTaskList(id);
+
 		if (taskList != null) {
 			selectOrder(taskList.getTasks(), priority);
-			return new ResponseEntity<TaskList>(taskList, HttpStatus.OK);
+			return taskList;
 		}
+
 		return null;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "taskList", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TaskList> saveList(@RequestBody TaskList taskList) {
-
-		TaskList savedList = bdController.saveTaskList(taskList);
-
-		return new ResponseEntity<TaskList>(savedList, HttpStatus.OK);
+	public TaskList saveList(@RequestBody TaskList taskList) {
+		return bdController.saveTaskList(taskList);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "taskList/{id}")
-	public ResponseEntity<TaskList> removeTaskList(@PathVariable Long id) {
-
-		return getTaskListResponseEntity(bdController.removeTaskList(id));
+	public void removeTaskList(@PathVariable Long id) {
+		bdController.removeTaskList(id);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "taskList")
-	public ResponseEntity<TaskList> removeAllTasksLists() {
-
+	public void removeAllTasksLists() {
 		bdController.removeAllTaskLists();
-
-		return new ResponseEntity<TaskList>(HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "taskList/{id}/{listName}")
-	public ResponseEntity<TaskList> editListName(@PathVariable Long id, @PathVariable String listName){
-
-		TaskList taskList = bdController.editListName(id, listName);
-
-		return (taskList != null) ? new ResponseEntity<TaskList>(taskList, HttpStatus.OK) :
-									new ResponseEntity<TaskList>(HttpStatus.NOT_FOUND);
+	public TaskList editListName(@PathVariable Long id, @PathVariable String listName){
+		return bdController.editListName(id, listName);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "taskList/tasks/{id}")
-	public ResponseEntity<TaskList> clearTaskList(@PathVariable Long id) {
-
-		return getTaskListResponseEntity(bdController.clearTaskList(id));
+	public void clearTaskList(@PathVariable Long id) {
+		bdController.clearTaskList(id);
 	}
 
 	// auxiliar methods
-
-	private ResponseEntity<TaskList> getTaskListResponseEntity(boolean expression) {
-		return (expression) ? new ResponseEntity<TaskList>(HttpStatus.OK) :
-							  new ResponseEntity<TaskList>(HttpStatus.NOT_FOUND);
-	}
 
 	private List<Task> selectOrder(List<Task> taskList, String order) {
 

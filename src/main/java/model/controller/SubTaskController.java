@@ -21,36 +21,23 @@ public class SubTaskController {
 	public SubTaskController() {}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/subTask/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SubTask> getSubTasks(@PathVariable Long id) {
-
-		SubTask subTask = bdController.getSubTask(id);
-
-		return new ResponseEntity<SubTask>(subTask, HttpStatus.OK);
+	public SubTask getSubTasks(@PathVariable Long id) {
+		return bdController.getSubTask(id);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/subTask/{taskId}", consumes = MediaType
 			.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SubTask> saveTask(@PathVariable Long taskId, @RequestBody SubTask subTask) {
-
-		SubTask savedSubTask = bdController.saveSubTask(taskId, subTask);
-
-		return (savedSubTask != null) ? new ResponseEntity<SubTask>(savedSubTask, HttpStatus.OK) :
-										new ResponseEntity<SubTask>(HttpStatus.NOT_FOUND);
+	public SubTask saveTask(@PathVariable Long taskId, @RequestBody SubTask subTask) {
+		return bdController.saveSubTask(taskId, subTask);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/subTask")
-	public ResponseEntity<SubTask> saveTask(@RequestBody SubTask subTask) {
-
-		SubTask savedSubTask = bdController.saveSubTask(subTask);
-
-		return new ResponseEntity<SubTask>(savedSubTask, HttpStatus.OK);
+	public SubTask saveTask(@RequestBody SubTask subTask) {
+		return bdController.saveSubTask(subTask);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, value = "/subTask/{taskId}/{subTaskId}")
-	public ResponseEntity<SubTask> removeTask(@PathVariable Long taskId, @PathVariable Long subTaskId) {
-		boolean isRemoved = bdController.removeSubTask(taskId, subTaskId);
-
-		return (isRemoved) ? new ResponseEntity<SubTask>(HttpStatus.OK) :
-							 new ResponseEntity<SubTask>(HttpStatus.NOT_FOUND);
+	public void removeTask(@PathVariable Long taskId, @PathVariable Long subTaskId) {
+		bdController.removeSubTask(taskId, subTaskId);
 	}
 }
